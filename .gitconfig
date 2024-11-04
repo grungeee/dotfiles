@@ -1,0 +1,9 @@
+[user]
+	name = grungeee
+	email = sharapanikita@gmail.com
+[init]
+	defaultBranch = senpai
+[credential]
+	helper = cache
+[push]
+	autoSetupRemote = true
