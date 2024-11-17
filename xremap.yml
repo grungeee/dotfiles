@@ -1,0 +1,237 @@
+# ================================================
+modmap:
+  - name: Global
+    remap:
+      CapsLock: Esc
+      ALT_L: CTRL_L
+      CTRL_L: ALT_L
+keymap:
+  - name: VIM binding
+    remap:
+      ALT_R-h: left
+      ALT_R-l: right
+      ALT_R-k: up
+      ALT_R-j: down
+# ================================================
+      
+# modmap:
+#   - name: Global
+#     remap:
+#       CapsLock: Esc
+#       ALT_L: CTRL_L
+#       CTRL_L: ALT_L
+#       # Alt -> Ctrl
+# #       M-a: C-a
+# #       M-z: C-z
+# #       M-x: C-x
+# #       M-c: C-c # use C-c for Esc, M-c for copy
+# #       M-v: C-v # use C-v for Vim, M-v for paste
+# #       M-w: C-w # avoid conflict with prefix
+# #       M-t: C-t
+# #       M-l: C-l
+# keymap:
+#   - name: VIM binding
+#     # application:
+#       # only: Slack
+#     remap:
+#       ALT_R-h: left
+#       ALT_R-l: right
+#       ALT_R-k: up
+#       ALT_R-j: down
+#     # application:
+#     #   only: Google-chrome
+#     # remap:
+#     #   Super-o: C-Shift-tab
+#     #   Super-p: C-tab
+#     #   Super-s: C-f
+#       # # Tab changes + Alt-Enter simulation
+#       # Super-o: C-Shift-tab
+#       # Super-p: C-tab
+#       # Super-Enter: M-Enter
+#       # # Underscore without Shift
+#       # RO: Shift-RO
+# ================================================
+
+# modmap:
+#   - name: Global
+#     remap:
+#       # CapsLock/Ctrl_L -> Esc
+#       CapsLock: Esc
+#       # Alt -> Ctrl
+#       M-a: C-a
+#       M-z: C-z
+#       M-x: C-x
+#       #M-c: C-c # use C-c for Esc, M-c for copy
+#       #M-v: C-v # use C-v for Vim, M-v for paste
+#       #M-w: C-w # avoid conflict with prefix
+#       M-t: C-t
+#       M-l: C-l
+#
+#       # actually these are vim insert mode bindings, but compatible with shell
+#       # C-w: [C-Shift-left, delete]
+#
+#       C-d: delete
+#       Super-d: C-delete
+#
+#       # workaround prefix key bug
+#       M-r:
+#         remap:
+#           '3': C-M-3
+#           '0': C-M-0
+#
+#       # workaround
+#       C-c: Esc
+#
+#   - name: Google Search
+#     application:
+#       only: Google-chrome
+#     remap:
+#       Super-o: C-Shift-tab
+#       Super-p: C-tab
+#       Super-s: C-f
+#
+#   - name: Terminal
+#     application:
+#       only: Gnome-terminal
+#     remap:
+#       Super-o: M-o
+#       Super-p: M-p
+#       Super-j: M-j
+#       Super-k: M-k
+#       Super-r: M-r
+#       Super-b: M-b
+#       Super-f: M-f
+#       Super-d: M-d
+#       Super-i: M-i
+#       Super-w: M-w
+#       Super-w: M-w
+#       Super-t: M-t
+#       Super-c: M-c
+#       Super-v: M-v
+#
+#   - name: Nocturn
+#     application:
+#       only: Nocturn
+#     remap:
+#       Super-j: M-j
+#       Super-k: M-k
+#       Super-o: M-o
+#       Super-p: M-p
+#       Super-Enter: Shift-Enter
+#
+#   - name: Slack
+#     application:
+#       only: Slack
+#     remap:
+#       Super-o: C-Shift-tab
+#       Super-p: C-tab
+#       Super-n: C-k
+#       Super-k: M-up
+#       Super-j: M-down
+#       C-M-k: Shift-Alt-up
+#       C-M-j: Shift-Alt-down
+#
+#       Super-1: C-1
+#       Super-2: C-2
+#       Super-3: C-3
+#       Super-4: C-4
+#       Super-5: C-5
+#       Super-6: C-6
+#       Super-7: C-7
+#       Super-8: C-8
+#       Super-9: C-9
+#
+#   - name: Default -- some of these are overridden by the above definitions
+#     application:
+#       not: [Google-chrome, Slack, Gnome-terminal, jetbrains-idea]
+#     remap:
+#       # VIM basic
+#       C-h: left
+#       C-l: right
+#       C-k: up
+#       C-j: down
+#
+#       # Alt -> Ctrl
+#       Super-a: C-a
+#       Super-z: C-z
+#       Super-x: C-x
+#       Super-c: C-c
+#       Super-v: C-v
+#       Super-w: C-w
+#       Super-t: C-t
+#       Super-l: C-l
+#
+#       # Tab changes + Alt-Enter simulation
+#       Super-o: C-Shift-tab
+#       Super-p: C-tab
+#       Super-Enter: M-Enter
+#
+#       # actually these are vim insert mode bindings, but compatible with shell
+#       C-w: [C-Shift-left, delete]
+#
+#       C-d: delete
+#       Super-d: C-delete
+#
+#       # Underscore without Shift
+#       RO: Shift-RO
+#
+#       # SKK hack for Chrome
+#       C-j: C-m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# keymap:
+#   - name: Name # Optional
+#     remap: # Required
+#       # Key press -> Key press
+#       MOD1-KEY_XXX: MOD2-KEY_YYY
+#       # Sequence (MOD1-KEY_XXX, MOD2-KEY_YYY) -> Key press (MOD3-KEY_ZZZ)
+#       MOD1-KEY_XXX:
+#         remap:
+#           MOD2-KEY_YYY: MOD3-KEY_ZZZ
+#         timeout_millis: 200 # Optional. No timeout by default.
+#       # Key press (MOD1-KEY_XXX) -> Sequence (MOD2-KEY_YYY, MOD3-KEY_ZZZ)
+#       MOD1-KEY_XXX: [MOD2-KEY_YYY, MOD3-KEY_ZZZ]
+#       # Execute a command
+#       MOD1-KEY_XXX:
+#         launch: ["bash", "-c", "echo hello > /tmp/test"]
+#       # Let `with_mark` also press a Shift key (useful for Emacs emulation)
+#       MOD1-KEY_XXX: { set_mark: true } # use { set_mark: false } to disable it
+#       # Also press Shift only when { set_mark: true } is used before
+#       MOD1-KEY_XXX: { with_mark: MOD2-KEY_YYY }
+#       # The next key press will ignore keymap
+#       MOD1-KEY_XXX: { escape_next_key: true }
+#       # Set mode to configure Vim-like modal remapping
+#       MOD1-KEY_XXX: { set_mode: default }
+#     application: # Optional
+#       not: [Application, ...]
+#       # or
+#       only: [Application, ...]
+#     window: # Optional (only hyprland/wlroots/kde clients supported)
+#       not: [/regex of window title/, ...]
+#       # or
+#       only: [/regex of window title/, ...]
+#     device: # Optional
+#       not: [Device, ...]
+#       # or
+#       only: [Device, ...]
+#     mode: default # Optional
+# default_mode: default # Optional
+#

@@ -1,0 +1,192 @@
+# fpath=($HOME/completion_zsh/ $fpath)
+export PATH="$PATH:/home/myodyssey/bin"
+export PATH="$PATH:/var/lib/snapd/snap/bin"
+#export PATH="$PATH:/path/to/chatgpt.sh"
+# ===============< Aliases >==================
+#
+# unalias acesp32
+# unalias auesp32
+unalias acuno4 2>/dev/null
+unalias auuno4 2>/dev/null
+# unalias aci 2>/dev/null
+# ---------------------------------------------
+# ---------------- Terminal -------------------
+unalias man 2>/dev/null
+#alias man="man $1 | less" 
+#alias man="betterView_man"
+
+# man() {
+#   local whatever="$1"
+#   man $1 | less
+# }
+
+
+# betterView_man() {
+#   local whatever="$1"
+#   man $whatever | less
+# }
+
+#
+#
+#alias man="man $1 | less" 
+#
+#
+#
+#
+#
+#
+#
+# =========< AUR / YAY > ============
+
+
+# === < Spotify > ===
+alias stui="spotify-tui"
+#
+
+alias cls="clear"
+
+
+# yays() {
+#     if [ -z "$1" ]; then
+#         echo "Usage: yays <package_name>"
+#         return 1
+#     fi
+#     local package="$1"
+#     yay -S "$package" --noconfirm --noredownload
+# }
+
+ alias yays="yay -S $1 --noconfirm --norebuild --noanswerdiff"
+
+#
+alias cls="clear"
+alias nv="nvim"
+alias neovim="nvim"
+alias nvconf="nvim ~/.config/nvim/init.lua"
+
+
+alias nzp="$EDITOR ~/.zshrc-personal"
+alias szp="source ~/.zshrc" # Sources .zshrc-personal
+
+
+alias gitalias="less /usr/share/oh-my-zsh/plugins/git/git.plugin.zsh"
+alias nhyper="$EDITOR ~/.config/hypr/hyprland.conf"
+# ================< QElectroTech >=================
+#
+#sudo chmod +x ~/bin/QElectroTech_qt5.15.2.AppImage
+
+alias QElectroTech="~/bin/QElectroTech_0.9-r7759-x86_64.AppImage"
+# alias qet="~/bin/QElectroTech_0.9-r7759-x86_64.AppImage"
+alias qet="nohup ~/bin/QElectroTech_0.9-r7759-x86_64.AppImage &"
+
+# =================< arduino-cli >=================
+#
+alias adir="cd ~/Arduino/"
+# alias loralibs="cd ~/Documents/coding/arduino/LoRa_libraries/"
+
+alias acli="arduino-cli"
+
+
+# esp32 (){
+#  local port="$1"
+#    if [ -z "$1" ]; then
+#        port=0
+#        return
+#    fi
+#  arduino-cli compile -p /dev/ttyUSB"$port" -b esp32:esp32:esp32 
+#  arduino-cli upload -p /dev/ttyUSB"$port" -b esp32:esp32:esp32 
+# }
+
+
+function esp32() {
+    local port="$1"
+    local directory="$2"
+    if [ -z "$1" ]; then
+        port="0"
+    fi
+    arduino-cli compile -p /dev/ttyUSB"$port" -b esp32:esp32:esp32 "$directory"
+    arduino-cli upload -p /dev/ttyUSB"$port" -b esp32:esp32:esp32 "$directory"
+}
+
+
+# acesp32(){
+#   if [ -z "$1" ]; then
+#     echo "Usage: ucesp32 <board_port> <sketch_directory>"
+#     return 1
+#   fi
+#   local port="$1"
+#   local path="$2"
+#   # arduino-cli "compile -p /dev/ttyACM0 --fqbn esp32:esp32:esp32c3 ~/Documents/coding/arduino/sketches/$1"
+#   arduino-cli compile -p /dev/ttyACM"$1" --fqbn esp32:esp32:esp32"$2"
+# }
+#
+#
+# auesp32(){
+#   local port="$1"
+#   local path="$2"
+#   sudo arduino-cli upload -p /dev/ttyACM"$1" --fqbn esp32:esp32:esp32c3 "$2"
+# }
+
+# --------------- UNO3 -------------
+acuno3(){
+  arduino-cli compile -p /dev/ttyUSB0 --fqbn arduino:avr:uno "$1"
+}
+
+
+auuno3(){
+  arduino-cli upload -p /dev/ttyUSB0 --fqbn arduino:avr:uno "$1"
+}
+
+UNO3(){
+ acuno3 && auuno3
+}
+
+# ----------------------------------
+#
+# --------------- UNO4 -------------
+acuno4(){
+  arduino-cli compile -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi "$1"
+}
+
+
+auuno4(){
+  arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi "$1"
+}
+
+UNO4(){
+ acuno4 && auuno4
+}
+
+# ----------------------------------
+#
+amon (){
+  local port="$1"
+  local baudrate="$2"
+    if [ -z "$2" ]; then
+      baudrate=115200
+      echo "Using (kinda)default baudrate: 115200"
+    fi
+  arduino-cli monitor -p /dev/tty"$port" --config "$baudrate"
+}
+
+# amon (){
+#   local port="$1"
+#   local baudrate="$2"
+#     if [ -z "$2" ]; then
+#       baudrate = 9600
+#       echo "Using default baudrate: 9600"
+#     fi
+#   arduino-cli monitor -p /dev/tty"$port" --config "$baudrate"
+# }
+
+# ---------------------
+# acuno4() {
+#   if [ -z "$1" ]; then
+#     echo "Usage: acuno4 <sketch_directory>"
+#     return 1
+#   fi
+#
+#   arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi "$1"
+# }
+# Check if the sketch directory is provided: The function now checks if the user has provided the sketch directory as an argument. If not, it prints a usage message and returns an error code.
+# ---------------------
+
