@@ -7,6 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH:/home/grungeee/.cargo/bin
+export PATH="/home/grungeee/.local/share/solana/install/active_release/bin:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -21,7 +22,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-source completion.sh
+#source completion.sh
 
 # Check archlinux plugin commands here
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/archlinux
@@ -34,14 +35,6 @@ pokemon-colorscripts --no-title -s -r
 #fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
 
 # =============< ALIASES >=============
-#list
-alias ls='ls --color=auto'
-alias la='ls -a'
-alias ll='ls -alFh'
-alias l='ls'
-alias l.="ls -A | egrep '^\.'"
-alias listdir="ls -d */ > list"
-
 #pacman
 alias sps='sudo pacman -S'
 alias spr='sudo pacman -R'

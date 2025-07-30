@@ -12,6 +12,19 @@ keymap:
       ALT_R-l: right
       ALT_R-k: up
       ALT_R-j: down
+  # - name: Zen
+  #   application:
+  #     # only: Zen-Browser
+  #     only: electron
+  #   remap:
+  #
+  #     CTRL_L-o: C-Shift-tab
+  #     CTRL_L-p: C-tab
+      # Super-p: C-tab
+      # Super-s: C-f
+      # Super-o: C-Shift-tab
+      # Super-p: C-tab
+      # Super-s: C-f
 # ================================================
       
 # modmap:

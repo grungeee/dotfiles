@@ -1,8 +1,36 @@
+# TODO:
+# - [ ] split zsh config into multiple files
+# - [] add comments to zsh config
+
 # fpath=($HOME/completion_zsh/ $fpath)
-export PATH="$PATH:/home/myodyssey/bin"
 export PATH="$PATH:/var/lib/snapd/snap/bin"
+export PATH=$PATH:/bin
 #export PATH="$PATH:/path/to/chatgpt.sh"
 # ===============< Aliases >==================
+
+#           >===< <> LSD <> >===<
+# --------------------------------------------
+# => [i] if installed use lsd else use ls
+if command -v lsd >/dev/null; then
+    alias ls='lsd'
+else
+    alias ls='ls --color=auto'
+fi
+# --------------------------------------------
+alias la='ls -a'
+alias ll='ls -alFh'
+alias l='ls -l'
+alias l.="ls -A | egrep '^\.'"
+alias lla='ls -la'
+alias lt='ls --tree'
+alias ldir="ls -d */"
+alias listdir="ls -d */ > list"
+# --------------------------------------------
+# => [i] mkd sound more natural
+alias mdk='md'
+# --------------------------------------------
+
+
 #
 # unalias acesp32
 # unalias auesp32
@@ -12,36 +40,31 @@ unalias auuno4 2>/dev/null
 # ---------------------------------------------
 # ---------------- Terminal -------------------
 unalias man 2>/dev/null
-#alias man="man $1 | less" 
-#alias man="betterView_man"
-
-# man() {
-#   local whatever="$1"
-#   man $1 | less
-# }
 
 
-# betterView_man() {
-#   local whatever="$1"
-#   man $whatever | less
-# }
 
-#
-#
-#alias man="man $1 | less" 
-#
-#
-#
-#
-#
-#
-#
-# =========< AUR / YAY > ============
+alias nvt="nvim +terminal"
+
+# ---------------- Terminal -------------------
 
 
-# === < Spotify > ===
+# =========< System > ============
+ # alias cd="cd $1 && lt"
+# unalias cd 2>/dev/null
+
+# => [i] after cd lists directory
+cd() {
+    local dir="$1"
+    if [ -z "$1" ]; then
+     dir="$HOME" 
+    fi
+$dir && lt
+}
+
+# ---------------------------------------------
+#           >===< <> Spotify <> >===<
 alias stui="spotify-tui"
-#
+# ---------------------------------------------
 
 alias cls="clear"
 
@@ -59,6 +82,7 @@ alias cls="clear"
 
 #
 alias cls="clear"
+
 alias nv="nvim"
 alias neovim="nvim"
 alias nvconf="nvim ~/.config/nvim/init.lua"
@@ -80,7 +104,7 @@ alias qet="nohup ~/bin/QElectroTech_0.9-r7759-x86_64.AppImage &"
 
 # =================< arduino-cli >=================
 #
-alias adir="cd ~/Arduino/"
+alias adir="cd ~/Documents/coding/arduino_stuff/"
 # alias loralibs="cd ~/Documents/coding/arduino/LoRa_libraries/"
 
 alias acli="arduino-cli"
@@ -101,10 +125,21 @@ function esp32() {
     local port="$1"
     local directory="$2"
     if [ -z "$1" ]; then
-        port="0"
+        port="ACM0"
     fi
-    arduino-cli compile -p /dev/ttyUSB"$port" -b esp32:esp32:esp32 "$directory"
-    arduino-cli upload -p /dev/ttyUSB"$port" -b esp32:esp32:esp32 "$directory"
+    arduino-cli compile -p /dev/tty"$port" -b esp32:esp32:esp32 "$directory"
+    arduino-cli upload -p /dev/tty"$port" -b esp32:esp32:esp32 "$directory"
+}
+
+
+function esp32c3() {
+    local port="$1"
+    local directory="$2"
+    if [ -z "$1" ]; then
+        port="ACM0"
+    fi
+    arduino-cli compile -p /dev/tty"$port" -b esp32:esp32:esp32c3 "$directory"
+    arduino-cli upload -p /dev/tty"$port" -b esp32:esp32:esp32c3 "$directory"
 }
 
 
