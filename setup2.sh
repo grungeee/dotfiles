@@ -1,14 +1,15 @@
 #!/bin/bash
 
-# This script creates symlinks for dotfiles from a specified directory to the home directory.
+- This script creates symlinks for dotfiles from a specified directory to the home directory.
 
-# Set the directory where your dotfiles are stored.
+Set the directory where your dotfiles are stored.
+
 DOTFILES_DIR=~/dotfiles
 
 # This loop iterates over all hidden files (files starting with a dot) in your dotfiles directory.
 echo "Creating symlinks for general dotfiles..."
 for FILE in "$DOTFILES_DIR"/.*; do
-    # This check ensures that we only process actual files, not directories like . or ..
+    # -- This check ensures that we only process actual files, not directories like . or ..
     [ -f "$FILE" ] || continue
 
     # This command extracts the filename from the full path.
@@ -26,29 +27,17 @@ echo ""
 # This section handles the symlinking of nvim configuration files.
 echo "Creating symlinks for nvim configuration..."
 
-# Set the source directory for your nvim lua configuration files.
-NVIM_LUA_SRC_DIR=~/dotfiles/nvim/lua
+# -- Create the parent directory if it doesn't already exist.
+mkdir -p ~/.config
 
-# Set the destination directory for your nvim lua configuration files.
-NVIM_LUA_DEST_DIR=~/.config/nvim/lua
+# Symlink the entire nvim config directory.
+#ln -sf ~/dotfiles/nvim ~/.config/nvim/ 
+# -- complains and also removes the og dir
 
-# Create the destination directory if it doesn't already exist.
-# The -p flag creates parent directories as needed.
-mkdir -p "$NVIM_LUA_DEST_DIR"
+# mv ~/.config/nvim ~/.config/nvim.bak
+# ln -s ~/dotfiles/nvim ~/.config/nvim
 
-# This loop iterates over all .lua files in the source directory.
-for FILE in "$NVIM_LUA_SRC_DIR"/*.lua; do
-    # This check ensures that we only process actual files.
-    if [ -f "$FILE" ]; then
-        # This command extracts the filename from the full path.
-        BASENAME=$(basename "$FILE")
-
-        # This command creates a symbolic link in the nvim config directory.
-        ln -sf "$FILE" "$NVIM_LUA_DEST_DIR/$BASENAME"
-        echo "Linked $FILE to $NVIM_LUA_DEST_DIR/$BASENAME"
-    fi
-done
-echo "Nvim configuration symlinks created."
+echo "Nvim configuration symlinked."
 
 
 ### Hardcoded cuz im too dumb rn

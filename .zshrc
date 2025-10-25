@@ -34,6 +34,14 @@ pokemon-colorscripts --no-title -s -r
 # fastfetch. Will be disabled if above colorscript was chosen to install
 #fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
 
+
+# ===============< Fuckery >==================
+# -- fixes backspace being received as ^? or 9u in the gemini-cli term
+# -- only recently tho :/
+
+# Fix backspace issue                                                                
+                                                                        
+
 # =============< ALIASES >=============
 #pacman
 alias sps='sudo pacman -S'
@@ -344,7 +352,11 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
  typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
 
-bindkey -v  #vim mode terminal
+# Enable vi keybindings except when launched from Codex or Gemini shells.
+parent_cmd=$(ps -p ${PPID:-0} -o comm= 2>/dev/null | tr '[:upper:]' '[:lower:]')
+if [[ "$parent_cmd" != "codex" && "$parent_cmd" != "gemini" ]]; then
+  bindkey -v  #vim mode terminal
+fi
 
 eval $(thefuck --alias)
 
@@ -352,3 +364,5 @@ eval $(thefuck --alias)
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+export PATH="$HOME/.local/npm-global/bin:$PATH"
+export PATH="$HOME/.local/npm-global/bin:$PATH"

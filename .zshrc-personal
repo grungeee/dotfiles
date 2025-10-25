@@ -6,6 +6,8 @@
 export PATH="$PATH:/var/lib/snapd/snap/bin"
 export PATH=$PATH:/bin
 #export PATH="$PATH:/path/to/chatgpt.sh"
+
+
 # ===============< Aliases >==================
 
 #           >===< <> LSD <> >===<
@@ -52,13 +54,10 @@ alias nvt="nvim +terminal"
  # alias cd="cd $1 && lt"
 # unalias cd 2>/dev/null
 
-# => [i] after cd lists directory
+# Custom cd function to run a command after changing directory.
 cd() {
-    local dir="$1"
-    if [ -z "$1" ]; then
-     dir="$HOME" 
-    fi
-$dir && lt
+  # Use the 'builtin' command to call the original cd command.
+  builtin cd "$@" && lt
 }
 
 # ---------------------------------------------
