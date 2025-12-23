@@ -1,124 +1,42 @@
+-- This file was automatically created by the NvChad system package
+-- to ensure NvChad starts correctly without errors.
+--
+-- You can add your custom lazy.nvim plugin specifications here.
+-- For example:
+-- return {
+--   { "nvim-lua/plenary.nvim" },
+--   -- add more plugins here
+-- }
+--
+-- If you have no custom plugins yet, NvChad requires this file to return an empty table.
 return {
   {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  opts = require "configs.todo-comments",
-    -- FIX
-    -- my dick
-    -- it aint working
-
-    -- opts = {
-    --   -- your configuration comes here
-    --   -- refer to the configuration section below
-    -- },
-  },
-  {
-    "loctvl842/monokai-pro.nvim",
-    config = function()
-      require("monokai-pro").setup()
-    end,
-  },
-  {
-    "tpope/vim-surround",
-    event = "BufEnter",
-  },
-  {
-    "sam4llis/nvim-lua-gf",
-    event = "BufEnter",
-  },
-  {
-    "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    config = function()
-      require "configs.conform"
-    end,
-  },
-  {
-    "Exafunction/codeium.vim",
-    event = "BufEnter",
-    config = function()
-      -- Change '<C-g>' here to any keycode you like.
-      vim.g.codeium_disable_bindings = 1 -- disable default bindings
-      vim.keymap.set("i", "<C-g>", function()
-        return vim.fn["codeium#Accept"]()
-      end, { expr = true, silent = true })
-      vim.keymap.set("i", "<C-;>", function()
-        return vim.fn["codeium#CycleCompletions"](1)
-      end, { expr = true, silent = true })
-      vim.keymap.set("i", "<C-,>", function()
-        return vim.fn["codeium#CycleCompletions"](-1)
-      end, { expr = true, silent = true })
-      vim.keymap.set("i", "<C-x>", function()
-        return vim.fn["codeium#Clear"]()
-      end, { expr = true, silent = true })
-      vim.keymap.set("i", "<C-.>", function()
-        return vim.fn["codeium#Complete"]()
-      end, { expr = true, silent = true })
-    end,
-  },
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    opts = {},
-    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-    lazy = false,
-  },
-  {
-    "nvim-tree/nvim-web-devicons",
-  },
-  -- These are some examples, uncomment them if you want to see them work!
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "configs.lspconfig"
-    end,
-  },
-
-  {
-    "williamboman/mason.nvim",
+    "hat0uma/csvview.nvim",
+    -- this runs the plugin's setup() for you
+    ---@type CsvView.Options
     opts = {
-      ensure_installed = {
-        "lua-language-server",
-        "stylua",
-        "html-lsp",
-        "css-lsp",
-        "prettier",
+      -- optional tweaks, you can leave this whole opts block out if you want defaults
+      parser = {
+        comments = { "#", "//" }, -- treat these as comment lines, they won't break the table
       },
-    },
-  },
+      keymaps = {
+        -- text objects for selecting a single cell
+        textobject_field_inner = { "if", mode = { "o", "x" } },
+        textobject_field_outer = { "af", mode = { "o", "x" } },
 
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "vimdoc",
-        "html",
-        "css",
+        -- spreadsheet-style jumping:
+        jump_next_field_end = { "<Tab>", mode = { "n", "v" } },
+        jump_prev_field_end = { "<S-Tab>", mode = { "n", "v" } },
+        jump_next_row = { "<Enter>", mode = { "n", "v" } },
+        jump_prev_row = { "<S-Enter>", mode = { "n", "v" } },
       },
+
+      -- you can also change how columns are shown:
+      -- display_mode = "highlight", -- default: highlight separators
+      -- display_mode = "border",    -- draws nice │ column borders instead
     },
+
+    -- lazy-load on command (so it doesn't slow startup)
+    cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
   },
 }
-
--- {
---   "leon-richardt/comment-highlights.nvim",
---   dependencies = { "nvim-treesitter/nvim-treesitter" },
---   opts = {},
---   cmd = "CHToggle",
---   keys = {
---     {
---       "<leader>cc",
---       function()
---         require("comment-highlights").toggle()
---       end,
---       desc = "Toggle comment highlighting",
---     },
---   },
--- },
-
--- {
---   "Exafunction/codeium.vim",
---   event = "BufEnter",
--- },

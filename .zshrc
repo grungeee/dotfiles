@@ -366,3 +366,10 @@ eval "$(pyenv virtualenv-init -)"
 
 export PATH="$HOME/.local/npm-global/bin:$PATH"
 export PATH="$HOME/.local/npm-global/bin:$PATH"
+
+# bun completions
+[ -s "/home/grungeee/.bun/_bun" ] && source "/home/grungeee/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

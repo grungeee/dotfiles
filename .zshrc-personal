@@ -78,6 +78,7 @@ alias cls="clear"
 # }
 
  alias yays="yay -S $1 --noconfirm --norebuild --noanswerdiff"
+ # alias yays="yay -S $1 --noconfirm --norebuild --noanswerdiff --needed"
 
 #
 alias cls="clear"
