@@ -1,0 +1,18 @@
+# OS junk
+.DS_Store
+
+# Secrets — defensive exclusion (do NOT commit these)
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+*.jks
+.env
+.env.*
+*.token
+*.secret
+*.credentials
+.netrc

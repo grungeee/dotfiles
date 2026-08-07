@@ -1,0 +1,280 @@
+# TODO:
+# - [ ] split zsh config into multiple files
+# - [] add comments to zsh config
+
+# fpath=($HOME/completion_zsh/ $fpath)
+export PATH="$PATH:/var/lib/snapd/snap/bin"
+export PATH=$PATH:/bin
+#export PATH="$PATH:/path/to/chatgpt.sh"
+
+# ===============< Aliases >==================
+
+#           >===< <> LSD <> >===<
+# --------------------------------------------
+# => [i] if installed use lsd else use ls
+if command -v lsd >/dev/null; then
+    alias ls='lsd'
+else
+    alias ls='ls --color=auto'
+fi
+# --------------------------------------------
+alias la='ls -a'
+alias ll='ls -alFh'
+alias l='ls -l'
+alias l.="ls -A | egrep '^\.'"
+alias lla='ls -la'
+alias lt='ls --tree'
+alias ldir="ls -d */"
+alias listdir="ls -d */ > list"
+# --------------------------------------------
+# => [i] mkd sound more natural
+alias mkd='md'
+
+# --------------------------------------------
+alias python='python3'
+# --------------------------------------------
+#
+# unalias acesp32
+# unalias auesp32
+unalias acuno4 2>/dev/null
+unalias auuno4 2>/dev/null
+# unalias aci 2>/dev/null
+# ---------------------------------------------
+# ---------------- Terminal -------------------
+unalias man 2>/dev/null
+
+
+
+alias nvt="nvim +terminal"
+
+# ---------------- Terminal -------------------
+
+
+# =========< System > ============
+ # alias cd="cd $1 && lt"
+# unalias cd 2>/dev/null
+
+# Custom cd function to run a command after changing directory.
+cd() {
+  # Use the 'builtin' command to call the original cd command.
+  builtin cd "$@" && lt
+}
+
+# ---------------------------------------------
+#           >===< <> Spotify <> >===<
+alias stui="spotify-tui"
+# ---------------------------------------------
+
+alias cls="clear"
+
+
+# yays() {
+#     if [ -z "$1" ]; then
+#         echo "Usage: yays <package_name>"
+#         return 1
+#     fi
+#     local package="$1"
+#     yay -S "$package" --noconfirm --noredownload
+# }
+
+ alias yays="yay -S $1 --noconfirm --norebuild --noanswerdiff"
+ # alias yays="yay -S $1 --noconfirm --norebuild --noanswerdiff --needed"
+
+#
+alias cls="clear"
+
+alias nv="nvim"
+alias neovim="nvim"
+alias nvconf="nvim ~/.config/nvim/init.lua"
+
+
+alias nzp="$EDITOR ~/.zshrc-personal"
+alias szp="source ~/.zshrc" # Sources .zshrc-personal
+
+
+alias gitalias="less /usr/share/oh-my-zsh/plugins/git/git.plugin.zsh"
+alias nhyper="$EDITOR ~/.config/hypr/hyprland.conf"
+# ================< QElectroTech >=================
+#
+#sudo chmod +x ~/bin/QElectroTech_qt5.15.2.AppImage
+
+alias QElectroTech="~/bin/QElectroTech_0.9-r7759-x86_64.AppImage"
+# alias qet="~/bin/QElectroTech_0.9-r7759-x86_64.AppImage"
+alias qet="nohup ~/bin/QElectroTech_0.9-r7759-x86_64.AppImage &"
+
+# =================< arduino-cli >=================
+#
+alias adir="cd ~/Documents/coding/arduino_stuff/"
+# alias loralibs="cd ~/Documents/coding/arduino/LoRa_libraries/"
+
+alias acli="arduino-cli"
+
+
+# esp32 (){
+#  local port="$1"
+#    if [ -z "$1" ]; then
+#        port=0
+#        return
+#    fi
+#  arduino-cli compile -p /dev/ttyUSB"$port" -b esp32:esp32:esp32 
+#  arduino-cli upload -p /dev/ttyUSB"$port" -b esp32:esp32:esp32 
+# }
+
+
+function esp32() {
+    local port="$1"
+    local directory="$2"
+    if [ -z "$1" ]; then
+        port="ACM0"
+    fi
+    arduino-cli compile -p /dev/tty"$port" -b esp32:esp32:esp32 "$directory"
+    arduino-cli upload -p /dev/tty"$port" -b esp32:esp32:esp32 "$directory"
+}
+
+
+function esp32c3() {
+    local port="$1"
+    local directory="$2"
+    if [ -z "$1" ]; then
+        port="ACM0"
+    fi
+    arduino-cli compile -p /dev/tty"$port" -b esp32:esp32:esp32c3 "$directory"
+    arduino-cli upload -p /dev/tty"$port" -b esp32:esp32:esp32c3 "$directory"
+}
+
+
+# acesp32(){
+#   if [ -z "$1" ]; then
+#     echo "Usage: ucesp32 <board_port> <sketch_directory>"
+#     return 1
+#   fi
+#   local port="$1"
+#   local path="$2"
+#   # arduino-cli "compile -p /dev/ttyACM0 --fqbn esp32:esp32:esp32c3 ~/Documents/coding/arduino/sketches/$1"
+#   arduino-cli compile -p /dev/ttyACM"$1" --fqbn esp32:esp32:esp32"$2"
+# }
+#
+#
+# auesp32(){
+#   local port="$1"
+#   local path="$2"
+#   sudo arduino-cli upload -p /dev/ttyACM"$1" --fqbn esp32:esp32:esp32c3 "$2"
+# }
+
+# --------------- UNO3 -------------
+acuno3(){
+  arduino-cli compile -p /dev/ttyUSB0 --fqbn arduino:avr:uno "$1"
+}
+
+
+auuno3(){
+  arduino-cli upload -p /dev/ttyUSB0 --fqbn arduino:avr:uno "$1"
+}
+
+UNO3(){
+ acuno3 && auuno3
+}
+
+# ----------------------------------
+#
+# --------------- UNO4 -------------
+acuno4(){
+  arduino-cli compile -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi "$1"
+}
+
+
+auuno4(){
+  arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi "$1"
+}
+
+UNO4(){
+ acuno4 && auuno4
+}
+
+# ----------------------------------
+#
+amon() {
+  local baudrate="${1:-115200}"
+  local lines
+  local ports
+  local labels
+  local selected
+  local choice
+  local count
+  local line
+  local port
+  local label
+  local i
+
+  lines=(${(f)"$(arduino-cli board list --format json 2>/dev/null | python3 -c '
+import json
+import sys
+
+try:
+    data = json.load(sys.stdin)
+except Exception:
+    sys.exit(0)
+
+for detected in data.get("detected_ports", []):
+    port = detected.get("port", {})
+    address = port.get("address")
+    if not address:
+        continue
+
+    boards = detected.get("matching_boards") or []
+    if not boards:
+        continue
+
+    names = []
+    for board in boards:
+        name = board.get("name")
+        if name and name not in names:
+            names.append(name)
+
+    label = ", ".join(names) if names else port.get("protocol_label", "Serial Port")
+    print(address + "\t" + label)
+' 2>/dev/null)"})
+
+  if [ "${#lines}" -eq 0 ]; then
+    for port in /dev/cu.usb* /dev/tty.usb*; do
+      [ -e "$port" ] || continue
+      lines+=("${port}"$'\t'"Serial Port (USB)")
+    done
+  fi
+
+  ports=()
+  labels=()
+  for line in "${lines[@]}"; do
+    port="${line%%$'\t'*}"
+    label="${line#*$'\t'}"
+    ports+=("$port")
+    labels+=("$label")
+  done
+
+  count=${#ports}
+
+  if [ "$count" -eq 0 ]; then
+    echo "No Arduino-compatible serial boards found."
+    return 1
+  fi
+
+  echo "Available boards:"
+  for i in {1..$count}; do
+    echo "$i) ${ports[$i]} - ${labels[$i]}"
+  done
+
+  echo -n "Choose board [1-$count]: "
+  read -r choice
+
+  if ! [[ "$choice" =~ '^[0-9]+$' ]] || [ "$choice" -lt 1 ] || [ "$choice" -gt "$count" ]; then
+    echo "Invalid choice."
+    return 1
+  fi
+
+  selected="${ports[$choice]}"
+
+  echo "Using port: $selected"
+  echo "Using baudrate: $baudrate"
+
+  arduino-cli monitor -p "$selected" --config baudrate="$baudrate"
+}
